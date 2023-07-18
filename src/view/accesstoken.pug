@@ -1,0 +1,86 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      div {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      h1 {
+        text-align: center;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .non-overflow-p {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        word-break: break-all;
+      }
+
+  body 
+    div 
+      h1 Access Token
+      input(type="text", id="name", name="name", placeholder="Name")
+      input(type="text", id="tokenurl", name="apitoken", placeholder="Token Url")
+      input(type="text", id="clientid", name="clientid", placeholder="Client ID")
+      input(type="text", id="clientsecret", name="clientsecret", placeholder="Client Secret")
+      button(type="button", onclick="getToken()") Get Token
+      h2(id='res-name')
+      p(class='non-overflow-p' id='res-token')
+
+    script.
+      function getToken() {
+        const name = document.getElementById('name').value;
+        const tokenUrl = document.getElementById('tokenurl').value;
+        const clientId = document.getElementById('clientid').value;
+        const clientSecret = document.getElementById('clientsecret').value;
+
+        const requestData = {
+          name: name,
+          tokenUrl: tokenUrl,
+          clientId: clientId,
+          clientSecret: clientSecret
+        };
+
+        fetch('/api/oauth', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          const responseName = document.getElementById('res-name');
+          const responseToken = document.getElementById('res-token');
+          responseName.textContent = data.name;
+          responseToken.textContent = data.token;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+      }

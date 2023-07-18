@@ -1,0 +1,12 @@
+
+
+###
+POST http://localhost:8000/api/oauth
+Content-Type: application/json
+
+{
+  "name": "CALM",
+  "clientId": "sb-jira_calm!b163053|sapcloudalm!b96926",
+  "clientSecret": "f46afa23-7ca3-48a2-be14-d2f0d82cf56b$9kyfeC2W-zyZz7q6eU5s540tQZ4oho8dNqZPS91z4kg=",
+  "tokenUrl": "https://corealm-cloudalm.authentication.us10.hana.ondemand.com/oauth/token"
+}
